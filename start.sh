@@ -44,6 +44,7 @@ for i in /etc/skel/.?*; do
 done
 
 # tunnel .xrdp-unix <=> :3389
+rm -f $homedir/.xrdp-unix
 socat unix-listen:$homedir/.xrdp-unix,fork tcp-connect:localhost:3389 &
 while [ ! -e $homedir/.xrdp-unix ]; do sleep 0.1; done
 chown $uid:$gid $homedir/.xrdp-unix
