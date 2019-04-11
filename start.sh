@@ -43,6 +43,10 @@ for i in /etc/skel/.?*; do
 	fi
 done
 
+# tunnel .xrdp-unix <=> :3389
+socat unix-listen:$homedir/.xrdp-unix,fork tcp-connect:localhost:3389 &
+chown $uid:$gid $homedir/.xrdp-unix
+
 # start xrdp service
 xrdp-sesman
 ss -nltp
