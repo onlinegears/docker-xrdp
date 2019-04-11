@@ -45,6 +45,7 @@ done
 
 # tunnel .xrdp-unix <=> :3389
 socat unix-listen:$homedir/.xrdp-unix,fork tcp-connect:localhost:3389 &
+while [ ! -e $homedir/.xrdp-unix ]; do sleep 0.1; done
 chown $uid:$gid $homedir/.xrdp-unix
 
 # start xrdp service
@@ -54,3 +55,5 @@ ss -nltp
 xrdp-sesman
 ss -nltp
 xrdp -n
+
+rm -f $homedir/.xrdp-unix
